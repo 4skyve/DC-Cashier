@@ -1,0 +1,212 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id             String          @id @default(cuid())
+  username       String          @unique
+  passwordHash   String
+  role           UserRole
+  isActive       Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  avatarUrl      String?
+  stockMovements StockMovement[]
+  transactions   Transaction[]
+
+  @@map("users")
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id               String            @id @default(cuid())
+  categoryId       String
+  name             String
+  unit             ProductUnit
+  barcode          String?           @unique
+  price            Int
+  stock            Int               @default(0)
+  imageUrl         String?
+  description      String?
+  expiredDate      DateTime?
+  status           ProductStatus     @default(active)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  orderItems       OrderItem[]
+  category         Category          @relation(fields: [categoryId], references: [id])
+  stockMovements   StockMovement[]
+  transactionItems TransactionItem[]
+
+  @@index([categoryId])
+  @@index([status])
+  @@map("products")
+}
+
+model StockMovement {
+  id        String            @id @default(cuid())
+  productId String
+  createdBy String?
+  qty       Int
+  type      StockMovementType
+  note      String?
+  createdAt DateTime          @default(now())
+  user      User?             @relation(fields: [createdBy], references: [id])
+  product   Product           @relation(fields: [productId], references: [id])
+
+  @@index([productId])
+  @@map("stock_movements")
+}
+
+model Transaction {
+  id                String            @id @default(cuid())
+  transactionNumber String            @unique
+  userId            String?
+  orderId           String?           @unique
+  source            TransactionSource @default(pos)
+  total             Int
+  paymentMethod     PaymentMethod
+  status            TransactionStatus @default(completed)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  items             TransactionItem[]
+  order             Order?            @relation(fields: [orderId], references: [id])
+  user              User?             @relation(fields: [userId], references: [id])
+
+  @@map("transactions")
+}
+
+model TransactionItem {
+  id            String      @id @default(cuid())
+  transactionId String
+  productId     String
+  qty           Int
+  price         Int
+  subtotal      Int
+  product       Product     @relation(fields: [productId], references: [id])
+  transaction   Transaction @relation(fields: [transactionId], references: [id])
+
+  @@index([transactionId])
+  @@map("transaction_items")
+}
+
+/// Singleton -- selalu hanya 1 baris data.
+/// F-SET-01..09: tidak ada lagi field terkait pembayaran online
+/// (bank/QRIS/COD) karena katalog tidak memiliki fungsi transaksi.
+model StoreSetting {
+  id                 String  @id @default(cuid())
+  storeName          String
+  storeAddress       String?
+  storePhone         String?
+  logoUrl            String?
+  receiptHeader      String?
+  lowStockThreshold  Int     @default(5)
+  nearExpiredDays    Int     @default(7)
+  receiptPaperSize   String  @default("58mm")
+  theme              String  @default("light")
+  bankName           String?
+  bankAccountNumber  String?
+  bankAccountHolder  String?
+  qrisImageUrl       String?
+  codEnabled         Boolean @default(true)
+  defaultLanguage    String  @default("id")
+  catalogDescription String?
+
+  @@map("store_settings")
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  productId String
+  qty       Int
+  price     Int
+  subtotal  Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@map("order_items")
+}
+
+model Order {
+  id              String        @id @default(cuid())
+  customerName    String
+  whatsapp        String
+  address         String
+  paymentMethod   PaymentMethod
+  paymentProofUrl String?
+  status          OrderStatus   @default(pending)
+  rejectReason    String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  items           OrderItem[]
+  transaction     Transaction?
+
+  @@index([status])
+  @@map("orders")
+}
+
+enum UserRole {
+  admin
+  kasir
+}
+
+enum ProductUnit {
+  pack
+  box
+  renceng
+  pcs
+}
+
+enum ProductStatus {
+  active
+  inactive
+}
+
+enum StockMovementType {
+  manual
+  transaction
+  return
+  cancellation
+  adjustment
+}
+
+enum PaymentMethod {
+  cash
+  transfer
+  qris
+  cod
+}
+
+enum TransactionStatus {
+  completed
+  cancelled
+  returned
+}
+
+enum OrderStatus {
+  pending
+  processing
+  completed
+  cancelled
+}
+
+enum TransactionSource {
+  pos
+  portal
+}

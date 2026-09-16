@@ -267,6 +267,74 @@ export async function toggleProductStatus(
   revalidatePath(`/${locale}/katalog`);
 }
 
+export async function getTopSellingProducts(limit: number = 10) {
+  const grouped = await prisma.transactionItem.groupBy({
+    by: ["productId"],
+    where: {
+      transaction: {
+        status: "completed",
+      },
+    },
+    _sum: {
+      qty: true,
+    },
+    orderBy: {
+      _sum: {
+        qty: "desc",
+      },
+    },
+    take: limit,
+  });
+
+  if (grouped.length === 0) return [];
+
+  const products = await prisma.product.findMany({
+    where: {
+      id: { in: grouped.map((g) => g.productId) },
+    },
+    select: { id: true, name: true },
+  });
+  const nameMap = new Map(products.map((p) => [p.id, p.name]));
+
+  return grouped.map((g) => ({
+    productId: g.productId,
+    productName: nameMap.get(g.productId) ?? "",
+    totalSold: g._sum.qty ?? 0,
+  }));
+}
+
+export async function getLowInterestProducts(limit: number = 10) {
+  const [grouped, products] = await Promise.all([
+    prisma.transactionItem.groupBy({
+      by: ["productId"],
+      where: {
+        transaction: {
+          status: "completed",
+        },
+      },
+      _sum: {
+        qty: true,
+      },
+    }),
+    prisma.product.findMany({
+      select: { id: true, name: true },
+    }),
+  ]);
+
+  const soldMap = new Map(
+    grouped.map((g) => [g.productId, g._sum.qty ?? 0])
+  );
+
+  return products
+    .map((p) => ({
+      productId: p.id,
+      productName: p.name,
+      totalSold: soldMap.get(p.id) ?? 0,
+    }))
+    .sort((a, b) => a.totalSold - b.totalSold)
+    .slice(0, limit);
+}
+
 export async function deleteProduct(
   locale: string,
   id: string

@@ -48,7 +48,9 @@
     "transactionsToday": "Transaksi Hari Ini",
     "lowStock": "Stok Rendah",
     "expiring": "Produk Kedaluwarsa",
-    "recentTransactions": "Transaksi Terbaru"
+    "recentTransactions": "Transaksi Terbaru",
+    "topSelling": "Terlaris",
+    "lowInterest": "Kurang Diminati"
   },
   "kasir": {
     "title": "Kasir",

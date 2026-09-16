@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { getActiveProducts, getCategories } from "@/actions/product";
+import { getActiveProducts, getCategories, getTopSellingProducts } from "@/actions/product";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { ClickableImage } from "@/components/portal/clickable-image";
 import { TypewriterHeading } from "@/components/portal/typewriter-heading";
@@ -105,12 +105,14 @@ export default async function LandingPage({
     namespace: "portalNav",
   });
 
-  const [products, categories] = await Promise.all([
+  const [products, categories, topSellingData] = await Promise.all([
     getActiveProducts(),
     getCategories(),
+    getTopSellingProducts(5),
   ]);
 
-  const featured = products.slice(0, 4);
+  const topSellingIds = new Set(topSellingData.map((item) => item.productId));
+  const featured = products.filter((p) => topSellingIds.has(p.id)).slice(0, 5);
 
   const heroImage =
     "https://images.unsplash.com/photo-1620766958102-af71b50639cf?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
@@ -403,7 +405,7 @@ export default async function LandingPage({
           </AnimateOnScroll>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-3.5 md:grid-cols-4 md:gap-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-3.5 md:grid-cols-3 lg:grid-cols-5">
 
           {featured.map((product, index) => (
             <AnimateOnScroll key={product.id} delay={index * 90} y={20}>

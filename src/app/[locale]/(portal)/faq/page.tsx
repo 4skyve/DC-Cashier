@@ -1,58 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 
 type FAQItem = {
   question: string;
   answer: string;
 };
-
-const generalFAQs: FAQItem[] = [
-  {
-    question: "Kapan jam operasional toko?",
-    answer:
-      "Toko kami melayani kebutuhan pelanggan pada jam operasional yang telah ditentukan. Untuk memastikan ketersediaan layanan, silakan menuju ke halaman kontak.",
-  },
-  {
-    question: "Apakah ada minimum belanja?",
-    answer:
-      "Tidak ada minimal belanja di toko offline kami, silahkan belanja sesuai dengan kebutuhan anda dan akan kami melayani dengan baik.",
-  },
-  {
-    question: "Apakah ada produk lain selain makanan dan minuman?",
-    answer:
-      "Untuk saat ini, toko kami baru menyediakan produk makanan dan minuman. Semoga di kedepannya toko kami juga menyediakan barang-barang kebutuhan yang lainnya.",
-  },
-  {
-    question: "Bagaimana cara mengecek ketersediaan stok?",
-    answer:
-      "Pelanggan dapat melihat ketersediaan stok melalui halaman produk, atau menanyakan langsung melalui WhatsApp."
-  },
-];
-
-const productFAQs: FAQItem[] = [
-  {
-    question: "Bagaimana cara melakukan pembelian?",
-    answer:
-      "Pelanggan dapat mengunjungi langsung toko offline kami di alamat yang tertera, atau memesan melalui WhatsApp apabila alamat memungkinkan.",
-  },
-  {
-    question: "Bagaimana proses pemesanan via WhatsApp?",
-    answer:
-      "Hubungi nomor WhatsApp kami dan informasikan produk serta jumlah yang ingin dipesan. Tim kami akan membantu memproses pesanan dan memberikan informasi selanjutnya.",
-  },
-  {
-    question: "Apakah semua orang dapat memesan via WhatsApp?",
-    answer:
-      "Tidak, pemesanan melalui WhatsApp hanya dapat dilakukan apabila alamat pemesan <5km",
-  },
-  {
-    question: "Bagaimana dengan sistem pengiriman?",
-    answer:
-      "Pengiriman akan dilakukan langsung oleh pemilik toko, sehingga proses pengantaran dapat dijamin keamanannya.",
-  },
-];
 
 function FAQCard({
   item,
@@ -107,8 +62,23 @@ function FAQCard({
 }
 
 export default function FAQPage() {
+  const t = useTranslations("faq");
   const [openGeneral, setOpenGeneral] = useState<number | null>(null);
   const [openProduct, setOpenProduct] = useState<number | null>(null);
+
+  const generalFAQs: FAQItem[] = [
+    { question: t("q1"), answer: t("a1") },
+    { question: t("q2"), answer: t("a2") },
+    { question: t("q3"), answer: t("a3") },
+    { question: t("q4"), answer: t("a4") },
+  ];
+
+  const productFAQs: FAQItem[] = [
+    { question: t("q5"), answer: t("a5") },
+    { question: t("q6"), answer: t("a6") },
+    { question: t("q7"), answer: t("a7") },
+    { question: t("q8"), answer: t("a8") },
+  ];
 
   return (
     <main className="bg-[#EEF3FF]">
@@ -124,12 +94,11 @@ export default function FAQPage() {
             <div className="mx-auto max-w-[760px] text-white">
 
               <h1 className="text-[clamp(1.5rem,5vw,2.5rem)] font-bold leading-[1.2] tracking-tight">
-                Pertanyaan yang Sering Diajukan
+                {t("title")}
               </h1>
 
               <p className="mx-auto mt-3 max-w-[680px] text-[13px] leading-6 text-white/90 sm:mt-4 sm:text-sm md:text-[15px]">
-                Temukan jawaban untuk pertanyaan umum seputar pembelian grosir,
-                pengiriman, dan layanan kami.
+                {t("subtitle")}
               </p>
 
             </div>
@@ -146,7 +115,7 @@ export default function FAQPage() {
 
         <AnimateOnScroll>
           <h2 className="text-center text-xl font-bold text-[#182235] sm:text-2xl md:text-[28px] lg:text-[30px]">
-            Kenali Duo Caesar Lebih Dekat
+            {t("generalTitle")}
           </h2>
         </AnimateOnScroll>
 
@@ -199,7 +168,7 @@ export default function FAQPage() {
 
         <AnimateOnScroll>
           <h2 className="text-center text-xl font-bold text-[#182235] sm:text-2xl md:text-[28px] lg:text-[30px]">
-            Pertanyaan Seputar Produk & Layanan
+            {t("productTitle")}
           </h2>
         </AnimateOnScroll>
 

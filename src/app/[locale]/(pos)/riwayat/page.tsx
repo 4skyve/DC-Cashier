@@ -251,7 +251,11 @@ export default async function RiwayatPage({
                           {tx.transactionNumber}
                         </div>
                         <div className={`text-xs mt-1 capitalize ${statusClass}`}>
-                          {tx.status}
+                          {tx.status === "completed"
+                            ? t("status_completed")
+                            : tx.status === "cancelled"
+                              ? t("status_cancelled")
+                              : t("status_returned")}
                         </div>
                       </td>
 
@@ -273,7 +277,7 @@ export default async function RiwayatPage({
                       {/* PEMBAYARAN */}
                       <td className="px-5 py-4">
                         <span className="inline-flex items-center rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-600">
-                          {tx.paymentMethod === "cash" ? "Cash" : "Transfer"}
+                          {tx.paymentMethod === "cash" ? t("paymentMethodCash") : t("paymentMethodTransfer")}
                         </span>
                       </td>
 

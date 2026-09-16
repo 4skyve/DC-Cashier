@@ -723,17 +723,19 @@ export default function CategoryManager({
               )}
             </div>
 
-            {/* ADD PRODUCT */}
+            {/* ADD PRODUCT — admin only */}
 
-            <div className="p-4 border-t border-neutral-300">
-              <button
-                type="button"
-                className="w-full border border-dashed border-neutral-300 py-2.5 rounded-md text-sm text-neutral-600 hover:bg-neutral-50 transition"
-              >
-                + Tambah Produk ke{" "}
-                {selectedCategory.name}
-              </button>
-            </div>
+            {isAdmin && (
+              <div className="p-4 border-t border-neutral-300">
+                <button
+                  type="button"
+                  className="w-full border border-dashed border-neutral-300 py-2.5 rounded-md text-sm text-neutral-600 hover:bg-neutral-50 transition"
+                >
+                  + Tambah Produk ke{" "}
+                  {selectedCategory.name}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -199,18 +199,40 @@
     "date": "Date",
     "status_completed": "Success",
     "status_cancelled": "Cancelled",
-    "status_returned": "Returned"
+    "status_returned": "Returned",
+    "paymentMethodCash": "Cash",
+    "paymentMethodTransfer": "Transfer"
   },
   "portalNav": {
     "home": "Home",
-    "catalog": "Catalog"
+    "catalog": "Catalog",
+    "products": "Products",
+    "about": "About Us",
+    "contact": "Contact",
+    "contactUs": "Contact Us",
+    "viewAll": "View All",
+    "viewAllCategories": "View All Categories",
+    "viewAllProducts": "View All Products",
+    "all": "All"
   },
   "portalFooter": {
     "about": "Trusted partner for wholesale snack stock and your store's needs.",
     "storeInfo": "Store Info",
     "quickLinks": "Quick Links",
     "catalog": "Product Catalog",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "navigation": "Navigation",
+    "home": "Home",
+    "products": "Products",
+    "about": "About Us",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "ourProducts": "Our Products",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "slogan": "Quality Wholesale Snack Center",
+    "description": "Main provider of wholesale snack needs for your business. Providing the best quality and prices.",
+    "viewAll": "View All"
   },
   "portal": {
     "outOfStock": "Out of Stock",
@@ -239,7 +261,14 @@
     "step2Desc": "Come by or contact us to check availability and pricing.",
     "step3Title": "Buy In-Store",
     "step3Desc": "Complete your purchase directly at our cashier.",
-    "stepsCta": "View the Catalog"
+    "stepsCta": "View the Catalog",
+    "relatedProducts": "Related Products",
+    "all": "All",
+    "ctaTitle": "Need Snacks for Your Business?",
+    "ctaSubtitle": "Contact us now via WhatsApp for product information, pricing, and orders!",
+    "ctaButton": "Chat WhatsApp Now",
+    "bestSeller": "Best Seller",
+    "laris": "Best Seller"
   },
   "katalog": {
     "title": "Product Catalog",
@@ -261,6 +290,52 @@
     "description": "Description",
     "availableStock": "Available Stock",
     "available": "In Stock",
-    "backToCatalog": "Back to Catalog"
+    "backToCatalog": "Back to Catalog",
+    "orderViaWA": "Order via WhatsApp",
+    "orderViaWAHint": "Click to contact our sales admin directly via WhatsApp.",
+    "productDesc": "Product Description",
+    "productInfo": "Product Information",
+    "category": "Category",
+    "stockStatus": "Stock Status",
+    "outOfStock": "Out of Stock",
+    "limited": "Limited",
+    "readyStock": "Ready Stock"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions about wholesale purchases, delivery, and our services.",
+    "generalTitle": "Get to Know Duo Caesar Better",
+    "productTitle": "Questions About Products & Services",
+    "q1": "What are the store operating hours?",
+    "a1": "Our store serves customers during designated operating hours. To ensure service availability, please visit the contact page.",
+    "q2": "Is there a minimum purchase?",
+    "a2": "There is no minimum purchase at our offline store, please shop according to your needs and we will serve you well.",
+    "q3": "Are there products other than food and beverages?",
+    "a3": "For now, our store only provides food and beverage products. Hopefully in the future our store will also provide other necessities.",
+    "q4": "How to check stock availability?",
+    "a4": "Customers can view stock availability through the product page, or inquire directly via WhatsApp.",
+    "q5": "How to make a purchase?",
+    "a5": "Customers can visit our offline store directly at the listed address, or order via WhatsApp if the address allows.",
+    "q6": "What is the ordering process via WhatsApp?",
+    "a6": "Contact our WhatsApp number and inform the product and quantity you want to order. Our team will help process the order and provide further information.",
+    "q7": "Can everyone order via WhatsApp?",
+    "a7": "No, ordering via WhatsApp can only be done if the orderer's address is <5km",
+    "q8": "What about the delivery system?",
+    "a8": "Delivery will be done directly by the store owner, so the delivery process can be guaranteed safe."
+  },
+  "contact": {
+    "badge": "We're Online",
+    "title": "Contact Us",
+    "subtitle": "We are ready to help your snack wholesale needs. Please contact us through the channels below.",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "address": "Address",
+    "operationalHours": "Operating Hours",
+    "mondayFriday": "Monday - Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "ctaTitle": "Want to Place an Order?",
+    "ctaSubtitle": "Contact our sales team via WhatsApp for the latest catalog and best price offers.",
+    "ctaButton": "Chat WhatsApp Now"
   }
 }

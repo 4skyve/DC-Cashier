@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import PortalSearch from "./PortalSearch";
 
 export default function PortalNavbar({
@@ -10,15 +11,16 @@ export default function PortalNavbar({
   locale: string;
 }) {
   const pathname = usePathname();
+  const t = useTranslations("portalNav");
 
   const links = [
     {
       href: `/${locale}`,
-      label: "Beranda",
+      label: t("home"),
     },
     {
       href: `/${locale}/katalog`,
-      label: "Produk",
+      label: t("products"),
     },
     {
       href: `/${locale}/faq`,
@@ -26,11 +28,11 @@ export default function PortalNavbar({
     },
     {
       href: `/${locale}/tentang-kami`,
-      label: "Tentang Kami",
+      label: t("about"),
     },
     {
       href: `/${locale}/kontak`,
-      label: "Kontak",
+      label: t("contact"),
     },
   ];
 
@@ -79,7 +81,7 @@ export default function PortalNavbar({
           href={`/${locale}/kontak`}
           className="hidden shrink-0 rounded-full bg-[#1F416B] px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-[#173555] md:block"
         >
-          Hubungi Kami
+          {t("contactUs")}
         </Link>
       </div>
 

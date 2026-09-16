@@ -100,6 +100,11 @@ export default async function LandingPage({
     namespace: "common",
   });
 
+  const tNav = await getTranslations({
+    locale,
+    namespace: "portalNav",
+  });
+
   const [products, categories] = await Promise.all([
     getActiveProducts(),
     getCategories(),
@@ -261,7 +266,7 @@ export default async function LandingPage({
                   href={`/${locale}/katalog`}
                   className="hidden text-xs font-semibold text-[#1F416B] transition hover:underline md:block"
                 >
-                  Lihat Semua Kategori
+                  {tNav("viewAllCategories")}
                 </Link>
               </AnimateOnScroll>
             </div>
@@ -278,10 +283,10 @@ export default async function LandingPage({
                     <IconGrid className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   </div>
 
-                  <span className="text-[11px] font-semibold text-[#253044] sm:text-xs">
-                    Semua
+                  <span className="text-[11px] font-semibold text-[#253044] sm:text-xs text-center leading-tight">
+                    {tNav("all")}
                     <br />
-                    Kategori
+                    {t("categoryTitle")}
                   </span>
                 </Link>
               </AnimateOnScroll>
@@ -393,7 +398,7 @@ export default async function LandingPage({
               href={`/${locale}/katalog`}
               className="text-xs font-semibold text-[#1F416B] transition hover:underline"
             >
-              Lihat Semua Produk →
+              {tNav("viewAllProducts")} →
             </Link>
           </AnimateOnScroll>
         </div>
@@ -458,14 +463,13 @@ export default async function LandingPage({
 
           <AnimateOnScroll y={14}>
             <h2 className="text-xl font-bold sm:text-2xl md:text-[25px]">
-              Butuh Snack untuk Usaha Anda?
+              {t("ctaTitle")}
             </h2>
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={90} y={12}>
             <p className="mt-3 max-w-[470px] text-xs leading-5 text-white/70">
-              Hubungi kami sekarang juga via WhatsApp untuk informasi produk,
-              harga, dan pemesanan!
+              {t("ctaSubtitle")}
             </p>
           </AnimateOnScroll>
 
@@ -479,7 +483,7 @@ export default async function LandingPage({
                 <span className="absolute -right-0.5 -top-0.5 h-2 w-2 animate-ping rounded-full bg-green-400" />
                 <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-green-500" />
               </span>
-              Chat WhatsApp Sekarang
+              {t("ctaButton")}
             </a>
           </AnimateOnScroll>
 

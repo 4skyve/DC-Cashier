@@ -53,6 +53,7 @@ export default async function ProductDetailPage({
 
   const t = await getTranslations({ locale, namespace: "productDetail" });
   const tc = await getTranslations({ locale, namespace: "common" });
+  const tNav = await getTranslations({ locale, namespace: "portalNav" });
 
   const unit = (product as any).unit ?? "Pcs";
   const imageUrl = (product as any).imageUrl ?? placeholderImage;
@@ -162,15 +163,15 @@ export default async function ProductDetailPage({
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#22C55E] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 ease-out hover:scale-[1.02] hover:bg-[#1FAF52] active:scale-95"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.6-.1a13.5 13.5 0 0 1-3.8-2.3 11.7 11.7 0 0 1-2.4-2.9c-.6-1-1.1-2-.9-2.9.1-.5.6-1.2 1-1.4.3-.2.7-.2 1 0l.9 1.8c.1.2.1.4 0 .6l-.5.8c-.1.2-.1.4 0 .6a7 7 0 0 0 3.2 3l.7-.7c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.6.3.9Z" />
-              </svg>
-              Pesan via WhatsApp
-            </a>
-            <p className="mt-2.5 text-[13px] text-[#8891A3]">
-              Klik untuk menghubungi admin penjualan kami langsung via WhatsApp.
-            </p>
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.6-.1a13.5 13.5 0 0 1-3.8-2.3 11.7 11.7 0 0 1-2.4-2.9c-.6-1-1.1-2-.9-2.9.1-.5.6-1.2 1-1.4.3-.2.7-.2 1 0l.9 1.8c.1.2.1.4 0 .6l-.5.8c-.1.2-.1.4 0 .6a7 7 0 0 0 3.2 3l.7-.7c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.6.3.9Z" />
+                </svg>
+                {t("orderViaWA")}
+              </a>
+              <p className="mt-2.5 text-[13px] text-[#8891A3]">
+                {t("orderViaWAHint")}
+              </p>
           </div>
         </AnimateOnScroll>
       </div>
@@ -180,7 +181,7 @@ export default async function ProductDetailPage({
 
         <AnimateOnScroll delay={100} y={16}>
           <div className="rounded-2xl border border-neutral-200 bg-white p-5 sm:p-6">
-            <h2 className="text-base font-bold text-[#0E2F55] sm:text-lg">Deskripsi Produk</h2>
+            <h2 className="text-base font-bold text-[#0E2F55] sm:text-lg">{t("productDesc")}</h2>
             <div className="mt-3 border-t border-neutral-100 pt-4">
               <p className="text-[13px] leading-relaxed text-[#535C69] sm:text-sm">
                 {product.description || "-"}
@@ -235,12 +236,12 @@ export default async function ProductDetailPage({
         <div className="mt-10 sm:mt-12">
           <AnimateOnScroll y={12}>
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold text-[#0E2F55] sm:text-xl">Produk Lainnya</h2>
+              <h2 className="text-lg font-bold text-[#0E2F55] sm:text-xl">{t("relatedProducts")}</h2>
               <Link
                 href={`/${locale}/katalog?category=${product.categoryId}`}
                 className="inline-flex items-center gap-1 text-[13px] font-semibold text-[#1F416B] transition-colors duration-200 ease-out hover:text-[#173555]"
               >
-                Lihat Semua
+                {tNav("viewAll")}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 18l6-6-6-6" />
                 </svg>

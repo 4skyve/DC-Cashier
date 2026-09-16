@@ -167,6 +167,7 @@ export default function CashierScreen({
         setCart({});
         setMessage("OK");
         setLastTransactionId(result.id);
+        setShowReceipt(true);
       } catch (e) {
         setMessage(e instanceof Error ? e.message : "ERROR");
       }
@@ -457,15 +458,6 @@ export default function CashierScreen({
                 <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" />
                 <span>{t("transactionSaved")}</span>
               </div>
-
-              <button
-                type="button"
-                onClick={() => setShowReceipt(true)}
-                className="flex items-center justify-center gap-1.5 w-full rounded-xl bg-primary-700 py-2 text-center text-xs font-semibold text-white shadow-sm hover:bg-primary-800 active:scale-98 transition-all duration-150"
-              >
-                <Printer className="w-3.5 h-3.5" />
-                <span>{t("printReceipt")}</span>
-              </button>
             </div>
           )}
 

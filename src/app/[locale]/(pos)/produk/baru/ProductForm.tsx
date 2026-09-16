@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef, useState, useTransition } from "react";
+import { useRef, useState, useTransition, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Image as ImageIcon, Upload } from "lucide-react";
+import { Image as ImageIcon, Upload, ChevronDown, X, Check } from "lucide-react";
 
-import { createProduct, updateProduct } from "@/actions/product";
+import { createProduct, updateProduct, createCategory } from "@/actions/product";
 
 type Category = {
   id: string;
@@ -45,9 +45,34 @@ export default function ProductForm({
   const [uploadMethod, setUploadMethod] = useState<"url" | "file">("url");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const [localCategories, setLocalCategories] = useState(categories);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(product?.categoryId ?? "");
+  const [categoryPickerOpen, setCategoryPickerOpen] = useState(false);
+  const [categorySearch, setCategorySearch] = useState("");
+  const [addCategoryModalOpen, setAddCategoryModalOpen] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState("");
+  const [categoryError, setCategoryError] = useState("");
+  const categoryPickerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (categoryPickerRef.current && !categoryPickerRef.current.contains(e.target as Node)) {
+        setCategoryPickerOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const expiredDefault = product?.expiredDate
     ? new Date(product.expiredDate).toISOString().slice(0, 10)
     : "";
+
+  const selectedCategory = localCategories.find((c) => c.id === selectedCategoryId);
+
+  const filteredCategories = localCategories.filter((c) =>
+    c.name.toLowerCase().includes(categorySearch.toLowerCase())
+  );
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -64,14 +89,39 @@ export default function ProductForm({
     reader.readAsDataURL(file);
   }
 
+  async function handleAddCategory() {
+    const name = newCategoryName.trim();
+    if (!name) return;
+
+    setCategoryError("");
+
+    startTransition(async () => {
+      try {
+        const newCategory = await createCategory(locale, name);
+        setLocalCategories((prev) => [...prev, newCategory]);
+        setSelectedCategoryId(newCategory.id);
+        setNewCategoryName("");
+        setAddCategoryModalOpen(false);
+        setCategorySearch("");
+      } catch {
+        setCategoryError("Gagal menambahkan kategori.");
+      }
+    });
+  }
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (!selectedCategoryId) {
+      alert("Kategori wajib dipilih");
+      return;
+    }
 
     const fd = new FormData(e.currentTarget);
 
     const input = {
       name: String(fd.get("name") || ""),
-      categoryId: String(fd.get("categoryId") || ""),
+      categoryId: selectedCategoryId,
       unit: fd.get("unit") as never,
       price: Number(fd.get("price") || 0),
       stock: product ? product.stock : Number(fd.get("stock") || 0),
@@ -198,20 +248,69 @@ export default function ProductForm({
           </Field>
 
           <Field label={t("category")}>
-            <select
-              name="categoryId"
-              required
-              defaultValue={product?.categoryId ?? ""}
-              className="input"
-            >
-              <option value="">{t("selectCategory")}</option>
-
-              {categories.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
+            <input type="hidden" name="categoryId" value={selectedCategoryId} />
+            <div className="relative" ref={categoryPickerRef}>
+              <input
+                type="text"
+                placeholder={t("selectCategory")}
+                value={categoryPickerOpen ? categorySearch : (selectedCategory?.name || "")}
+                onChange={(e) => setCategorySearch(e.target.value)}
+                onFocus={() => {
+                  setCategoryPickerOpen(true);
+                  setCategorySearch("");
+                }}
+                onBlur={() => {
+                  setTimeout(() => setCategoryPickerOpen(false), 150);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Escape") {
+                    setCategoryPickerOpen(false);
+                  }
+                }}
+                className="w-full px-3 py-2.5 border border-neutral-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#263f60]/20"
+              />
+              
+              {categoryPickerOpen && (
+                <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-neutral-300 rounded-lg shadow-xl z-50 max-h-[280px] overflow-hidden flex flex-col">
+                  <div className="flex-1 overflow-y-auto p-1">
+                    {filteredCategories.length === 0 ? (
+                      <div className="px-3 py-4 text-center text-sm text-neutral-500">
+                        {categorySearch ? "Tidak ditemukan" : "Belum ada kategori"}
+                      </div>
+                    ) : (
+                      filteredCategories.map((category) => (
+                        <button
+                          key={category.id}
+                          type="button"
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                            setSelectedCategoryId(category.id);
+                            setCategoryPickerOpen(false);
+                          }}
+                          className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors ${selectedCategoryId === category.id ? "bg-[#263f60] text-white" : "text-neutral-700 hover:bg-neutral-50"}`}
+                        >
+                          <span>{category.name}</span>
+                          {selectedCategoryId === category.id && <Check className="w-4 h-4" />}
+                        </button>
+                      ))
+                    )}
+                  </div>
+                  <div className="border-t border-neutral-100">
+                    <button
+                      type="button"
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        setAddCategoryModalOpen(true);
+                        setCategoryPickerOpen(false);
+                      }}
+                      className="w-full flex items-center gap-2 px-3 py-2 text-sm text-[#263f60] hover:bg-[#f0f3ff] transition-colors font-medium"
+                    >
+                      + Tambah kategori baru
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </Field>
 
           <Field label={t("unit")}>
@@ -331,6 +430,66 @@ export default function ProductForm({
           box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.08);
         }
       `}</style>
+
+      {/* MODAL TAMBAH KATEGORI */}
+      {addCategoryModalOpen && (
+        <div className="fixed inset-0 z-[100] bg-black/40 flex items-center justify-center px-4">
+          <div className="w-full max-w-[420px] bg-white rounded-xl shadow-2xl animate-in zoom-in-95 duration-200">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-100">
+              <h3 className="font-semibold text-neutral-800">Tambah Kategori Baru</h3>
+              <button 
+                type="button"
+                onClick={() => setAddCategoryModalOpen(false)}
+                className="p-1 rounded-lg text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <div className="p-6">
+              <div className="space-y-4">
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium text-neutral-700">Nama Kategori</label>
+                  <input
+                    type="text"
+                    autoFocus
+                    placeholder="Contoh: Snack, Minuman..."
+                    value={newCategoryName}
+                    onChange={(e) => setNewCategoryName(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleAddCategory();
+                      }
+                    }}
+                    className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#263f60]/20"
+                  />
+                  {categoryError && <p className="text-xs text-red-500 font-medium">{categoryError}</p>}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 px-6 py-4 bg-neutral-50/80 rounded-b-xl border-t border-neutral-100">
+              <button
+                type="button"
+                onClick={() => setAddCategoryModalOpen(false)}
+                disabled={isPending}
+                className="flex-1 px-4 py-2.5 border border-neutral-200 text-sm font-medium text-neutral-600 rounded-lg hover:bg-white transition-colors disabled:opacity-50"
+              >
+                Batal
+              </button>
+              <button
+                type="button"
+                onClick={handleAddCategory}
+                disabled={isPending || !newCategoryName.trim()}
+                className="flex-1 px-4 py-2.5 bg-[#263f60] text-white text-sm font-medium rounded-lg hover:bg-[#1a2c44] transition-colors disabled:opacity-50"
+              >
+                {isPending ? "Menyimpan..." : "Simpan"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </form>
   );
 }
@@ -345,7 +504,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-white border border-neutral-200 rounded-xl overflow-hidden">
+    <div className="bg-white border border-neutral-200 rounded-xl">
       <div className="flex items-center gap-2 px-4 py-3 border-b border-neutral-100 bg-neutral-50/60">
         <span className="text-neutral-400">{icon}</span>
         <span className="text-xs font-semibold uppercase tracking-wide text-neutral-500">

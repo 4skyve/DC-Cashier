@@ -32,7 +32,7 @@
   },
   "auth": {
     "loginTitle": "Masuk ke Caesar Cashier",
-    "loginSubtitle": "Masukkan kredensial Anda untuk mengakses dashboard.",
+    "loginSubtitle": "Masukkan data akun untuk mengakses dashboard.",
     "username": "Username",
     "password": "Kata Sandi",
     "placeholderUsername": "Masukkan username Anda",
@@ -199,18 +199,40 @@
     "date": "Tanggal",
     "status_completed": "Sukses",
     "status_cancelled": "Batal",
-    "status_returned": "Retur"
+    "status_returned": "Retur",
+    "paymentMethodCash": "Tunai",
+    "paymentMethodTransfer": "Transfer"
   },
   "portalNav": {
     "home": "Beranda",
-    "catalog": "Katalog"
+    "catalog": "Katalog",
+    "products": "Produk",
+    "about": "Tentang Kami",
+    "contact": "Kontak",
+    "contactUs": "Hubungi Kami",
+    "viewAll": "Lihat Semua",
+    "viewAllCategories": "Lihat Semua Kategori",
+    "viewAllProducts": "Lihat Semua Produk",
+    "all": "Semua"
   },
   "portalFooter": {
     "about": "Partner terpercaya untuk stok grosir snack dan kebutuhan warung Anda.",
     "storeInfo": "Info Toko",
     "quickLinks": "Tautan Cepat",
     "catalog": "Katalog Produk",
-    "rights": "Seluruh hak cipta dilindungi."
+    "rights": "Seluruh hak cipta dilindungi.",
+    "navigation": "Navigasi",
+    "home": "Beranda",
+    "products": "Produk",
+    "about": "Tentang Kami",
+    "faq": "FAQ",
+    "contact": "Kontak",
+    "ourProducts": "Produk Kami",
+    "privacy": "Kebijakan Privasi",
+    "terms": "Syarat & Ketentuan",
+    "slogan": "Pusat Grosir Snack Berkualitas",
+    "description": "Penyedia utama kebutuhan snack grosir untuk bisnis Anda. Memberikan kualitas dan harga terbaik.",
+    "viewAll": "Lihat Semua"
   },
   "portal": {
     "outOfStock": "Habis",
@@ -239,7 +261,14 @@
     "step2Desc": "Kunjungi atau hubungi kami untuk cek ketersediaan dan harga.",
     "step3Title": "Beli di Toko",
     "step3Desc": "Selesaikan pembelian langsung di kasir toko kami.",
-    "stepsCta": "Lihat Katalog"
+    "stepsCta": "Lihat Katalog",
+    "relatedProducts": "Produk Lainnya",
+    "all": "Semua",
+    "ctaTitle": "Butuh Snack untuk Usaha Anda?",
+    "ctaSubtitle": "Hubungi kami sekarang juga via WhatsApp untuk informasi produk, harga, dan pemesanan!",
+    "ctaButton": "Chat WhatsApp Sekarang",
+    "bestSeller": "Paling Banyak Dibeli",
+    "laris": "Terlaris"
   },
   "katalog": {
     "title": "Katalog Produk",
@@ -261,6 +290,52 @@
     "description": "Deskripsi",
     "availableStock": "Stok Tersedia",
     "available": "Tersedia",
-    "backToCatalog": "Kembali ke Katalog"
+    "backToCatalog": "Kembali ke Katalog",
+    "orderViaWA": "Pesan via WhatsApp",
+    "orderViaWAHint": "Klik untuk menghubungi admin penjualan kami langsung via WhatsApp.",
+    "productDesc": "Deskripsi Produk",
+    "productInfo": "Informasi Produk",
+    "category": "Kategori",
+    "stockStatus": "Status Stok",
+    "outOfStock": "Habis",
+    "limited": "Terbatas",
+    "readyStock": "Ready Stock"
+  },
+  "faq": {
+    "title": "Pertanyaan yang Sering Diajukan",
+    "subtitle": "Temukan jawaban untuk pertanyaan umum seputar pembelian grosir, pengiriman, dan layanan kami.",
+    "generalTitle": "Kenali Duo Caesar Lebih Dekat",
+    "productTitle": "Pertanyaan Seputar Produk & Layanan",
+    "q1": "Kapan jam operasional toko?",
+    "a1": "Toko kami melayani kebutuhan pelanggan pada jam operasional yang telah ditentukan. Untuk memastikan ketersediaan layanan, silakan menuju ke halaman kontak.",
+    "q2": "Apakah ada minimum belanja?",
+    "a2": "Tidak ada minimal belanja di toko offline kami, silahkan belanja sesuai dengan kebutuhan anda dan akan kami melayani dengan baik.",
+    "q3": "Apakah ada produk lain selain makanan dan minuman?",
+    "a3": "Untuk saat ini, toko kami baru menyediakan produk makanan dan minuman. Semoga di kedepannya toko kami juga menyediakan barang-barang kebutuhan yang lainnya.",
+    "q4": "Bagaimana cara mengecek ketersediaan stok?",
+    "a4": "Pelanggan dapat melihat ketersediaan stok melalui halaman produk, atau menanyakan langsung melalui WhatsApp.",
+    "q5": "Bagaimana cara melakukan pembelian?",
+    "a5": "Pelanggan dapat mengunjungi langsung toko offline kami di alamat yang tertera, atau memesan melalui WhatsApp apabila alamat memungkinkan.",
+    "q6": "Bagaimana proses pemesanan via WhatsApp?",
+    "a6": "Hubungi nomor WhatsApp kami dan informasikan produk serta jumlah yang ingin dipesan. Tim kami akan membantu memproses pesanan dan memberikan informasi selanjutnya.",
+    "q7": "Apakah semua orang dapat memesan via WhatsApp?",
+    "a7": "Tidak, pemesanan melalui WhatsApp hanya dapat dilakukan apabila alamat pemesan <5km",
+    "q8": "Bagaimana dengan sistem pengiriman?",
+    "a8": "Pengiriman akan dilakukan langsung oleh pemilik toko, sehingga proses pengantaran dapat dijamin keamanannya."
+  },
+  "contact": {
+    "badge": "Kami Online",
+    "title": "Hubungi Kami",
+    "subtitle": "Kami siap membantu kebutuhan grosir makanan ringan Anda. Silakan hubungi kami melalui saluran di bawah ini.",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "address": "Alamat",
+    "operationalHours": "Jam Operasional",
+    "mondayFriday": "Senin - Jumat",
+    "saturday": "Sabtu",
+    "sunday": "Minggu",
+    "ctaTitle": "Ingin Melakukan Pemesanan?",
+    "ctaSubtitle": "Hubungi tim sales kami via WhatsApp untuk katalog terbaru dan penawaran harga terbaik.",
+    "ctaButton": "Chat WhatsApp Sekarang"
   }
 }

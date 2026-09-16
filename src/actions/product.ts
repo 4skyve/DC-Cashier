@@ -127,13 +127,15 @@ export async function createCategory(
   locale: string,
   name: string
 ) {
-  await prisma.category.create({
+  const category = await prisma.category.create({
     data: {
       name,
     },
   });
 
   revalidatePath(`/${locale}/kategori`);
+  
+  return category;
 }
 
 export async function updateCategory(

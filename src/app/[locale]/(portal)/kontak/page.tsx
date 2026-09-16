@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 
 export default async function KontakPage({
@@ -7,6 +8,7 @@ export default async function KontakPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "contact" });
 
   return (
     <main className="min-h-screen bg-[#EEF3FF]">
@@ -20,16 +22,15 @@ export default async function KontakPage({
           <div className="text-center">
 
             <span className="inline-flex items-center gap-1.5 rounded-full bg-[#DCEAFF] px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-[#1F416B] sm:text-[11px]">
-              ● Kami Online
+              ● {t("badge")}
             </span>
 
             <h1 className="mt-3 text-[clamp(1.5rem,4.5vw,2.1rem)] font-bold leading-[1.2] tracking-tight text-[#0E2F55]">
-              Hubungi Kami
+              {t("title")}
             </h1>
 
             <p className="mx-auto mt-2.5 max-w-[600px] text-[12.5px] leading-6 text-[#4F5969] sm:text-[13px]">
-              Kami siap membantu kebutuhan grosir makanan ringan Anda. Silakan
-              hubungi kami melalui saluran di bawah ini.
+              {t("subtitle")}
             </p>
 
           </div>
@@ -58,7 +59,7 @@ export default async function KontakPage({
               </div>
 
               <h2 className="relative mt-3 text-[15px] font-bold text-[#0E2F55] sm:text-base">
-                WhatsApp
+                {t("whatsapp")}
               </h2>
 
               <a
@@ -88,7 +89,7 @@ export default async function KontakPage({
               </div>
 
               <h2 className="relative mt-3 text-[15px] font-bold text-[#0E2F55] sm:text-base">
-                Email
+                {t("email")}
               </h2>
 
               <a
@@ -116,7 +117,7 @@ export default async function KontakPage({
               </div>
 
               <h2 className="relative mt-3 text-[15px] font-bold text-[#0E2F55] sm:text-base">
-                Alamat
+                {t("address")}
               </h2>
 
               <p className="relative mt-1 text-[12.5px] leading-5 text-[#535C69]">
@@ -150,23 +151,23 @@ export default async function KontakPage({
                 </svg>
 
                 <h2 className="text-[15px] font-bold text-[#0E2F55] sm:text-base">
-                  Jam Operasional
+                  {t("operationalHours")}
                 </h2>
               </div>
 
               <div className="mt-3">
                 <div className="flex items-center justify-between border-b border-[#DCE2EC] py-2.5 transition-colors duration-200 hover:bg-black/[0.015]">
-                  <span className="text-[12.5px] text-[#535C69]">Senin - Jumat</span>
+                  <span className="text-[12.5px] text-[#535C69]">{t("mondayFriday")}</span>
                   <span className="text-[11px] font-bold text-[#0E2F55] sm:text-xs">08.00 - 17.00 WIB</span>
                 </div>
 
                 <div className="flex items-center justify-between border-b border-[#DCE2EC] py-2.5 transition-colors duration-200 hover:bg-black/[0.015]">
-                  <span className="text-[12.5px] text-[#535C69]">Sabtu</span>
+                  <span className="text-[12.5px] text-[#535C69]">{t("saturday")}</span>
                   <span className="text-[11px] font-bold text-[#0E2F55] sm:text-xs">08.00 - 14.00 WIB</span>
                 </div>
 
                 <div className="flex items-center justify-between py-2.5 transition-colors duration-200 hover:bg-black/[0.015]">
-                  <span className="text-[12.5px] text-[#535C69]">Minggu</span>
+                  <span className="text-[12.5px] text-[#535C69]">{t("sunday")}</span>
                   <span className="text-[11px] font-bold text-[#0E2F55] sm:text-xs">07.00 - 19.00 WIB</span>
                 </div>
               </div>
@@ -188,12 +189,11 @@ export default async function KontakPage({
               <div className="relative z-10 flex flex-col items-center justify-center">
 
                 <h2 className="text-lg font-bold text-white sm:text-xl">
-                  Ingin Melakukan Pemesanan?
+                  {t("ctaTitle")}
                 </h2>
 
                 <p className="mt-2.5 max-w-[380px] text-[12.5px] leading-5 text-[#A7BCD9]">
-                  Hubungi tim sales kami via WhatsApp untuk katalog terbaru
-                  dan penawaran harga terbaik.
+                  {t("ctaSubtitle")}
                 </p>
 
                 <a
@@ -206,7 +206,7 @@ export default async function KontakPage({
                     <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.8 8.8 0 0 1-4-.9L3 20l1.1-4.7a8.3 8.3 0 0 1-1-4.1 8.4 8.4 0 0 1 8.4-8.4 8.5 8.5 0 0 1 9.5 8.7Z" />
                     <path d="M8.5 9.5c.2 1.5 2.4 3.7 4 4 1 .2 1.8-.3 2.1-1l-1.2-.8c-.3-.2-.6-.1-.8.2l-.4.5c-.8-.3-1.5-.9-2-1.7l.4-.5c.2-.3.2-.6 0-.8l-.8-1.1c-.3-.3-.7-.2-1 .1-.3.3-.4.7-.3 1.1Z" />
                   </svg>
-                  Chat WhatsApp Sekarang
+                  {t("ctaButton")}
                 </a>
 
               </div>

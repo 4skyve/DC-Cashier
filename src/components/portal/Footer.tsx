@@ -13,6 +13,10 @@ export default async function PortalFooter({
     locale,
     namespace: "portalFooter",
   });
+  const tNav = await getTranslations({
+    locale,
+    namespace: "portalNav",
+  });
 
   const setting = await prisma.storeSetting.findFirst();
 
@@ -35,12 +39,11 @@ export default async function PortalFooter({
               </h2>
 
               <p className="mb-4 text-[13px] font-semibold text-[#F4C9B8]">
-                Pusat Grosir Snack Berkualitas
+                {t("slogan")}
               </p>
 
               <p className="max-w-[270px] text-[15px] leading-6 text-white/75">
-                Penyedia utama kebutuhan snack grosir untuk bisnis Anda.
-                Memberikan kualitas dan harga terbaik.
+                {t("description")}
               </p>
 
               {/* Social Media */}
@@ -78,32 +81,32 @@ export default async function PortalFooter({
           <AnimateOnScroll delay={80} y={20}>
             <div>
               <h3 className="mb-5 text-[12px] font-bold uppercase tracking-wide text-white">
-                NAVIGASI
+                {t("navigation")}
               </h3>
 
               <nav className="flex flex-col gap-3">
                 <Link href={`/${locale}`} className={navLinkClass}>
-                  Beranda
+                  {t("home")}
                   <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-[#F4C9B8] transition-all duration-300 group-hover:w-full" />
                 </Link>
 
                 <Link href={`/${locale}/katalog`} className={navLinkClass}>
-                  Produk
+                  {t("products")}
+                  <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-[#F4C9B8] transition-all duration-300 group-hover:w-full" />
+                </Link>
+
+                 <Link href={`/${locale}/faq`} className={navLinkClass}>
+                  {t("faq")}
                   <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-[#F4C9B8] transition-all duration-300 group-hover:w-full" />
                 </Link>
 
                 <Link href={`/${locale}/tentang-kami`} className={navLinkClass}>
-                  Tentang Kami
-                  <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-[#F4C9B8] transition-all duration-300 group-hover:w-full" />
-                </Link>
-
-                <Link href={`/${locale}/faq`} className={navLinkClass}>
-                  FAQ
+                  {t("about")}
                   <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-[#F4C9B8] transition-all duration-300 group-hover:w-full" />
                 </Link>
 
                 <Link href={`/${locale}/kontak`} className={navLinkClass}>
-                  Kontak
+                  {t("contact")}
                   <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-[#F4C9B8] transition-all duration-300 group-hover:w-full" />
                 </Link>
               </nav>
@@ -114,7 +117,7 @@ export default async function PortalFooter({
           <AnimateOnScroll delay={160} y={20}>
             <div>
               <h3 className="mb-5 text-[12px] font-bold uppercase tracking-wide text-white">
-                PRODUK KAMI
+                {t("ourProducts")}
               </h3>
 
               <nav className="flex flex-col gap-3">
@@ -142,7 +145,7 @@ export default async function PortalFooter({
                   href={`/${locale}/katalog`}
                   className="mt-1 inline-flex w-fit items-center gap-1 text-[14px] font-medium text-[#F4C9B8] transition-all duration-200 hover:gap-2 hover:text-white"
                 >
-                  Lihat Semua
+                  {t("viewAll")}
                   <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
                 </Link>
               </nav>
@@ -153,7 +156,7 @@ export default async function PortalFooter({
           <AnimateOnScroll delay={240} y={20}>
             <div>
               <h3 className="mb-5 text-[12px] font-bold uppercase tracking-wide text-white">
-                HUBUNGI KAMI
+                {tNav("contactUs")}
               </h3>
 
               <div className="flex flex-col gap-5">
@@ -214,7 +217,7 @@ export default async function PortalFooter({
         <AnimateOnScroll delay={0} y={10}>
           <div className="flex flex-col gap-4 text-[13px] text-white/75 md:flex-row md:items-center md:justify-between">
             <p>
-              © {new Date().getFullYear()} {storeName}. All rights reserved.
+              © {new Date().getFullYear()} {storeName}. {t("rights")}
             </p>
 
             <div className="flex items-center gap-7">
@@ -222,14 +225,14 @@ export default async function PortalFooter({
                 href={`/${locale}/kebijakan-privasi`}
                 className="relative w-fit transition-colors duration-200 hover:text-white"
               >
-                Kebijakan Privasi
+                {t("privacy")}
               </Link>
 
               <Link
                 href={`/${locale}/syarat-ketentuan`}
                 className="relative w-fit transition-colors duration-200 hover:text-white"
               >
-                Syarat & Ketentuan
+                {t("terms")}
               </Link>
             </div>
           </div>

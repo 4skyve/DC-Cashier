@@ -127,11 +127,7 @@ export default async function LaporanPage({
 
   const currentPage = Math.max(1, Number(page) || 1);
 
-  /*
-   * ==========================================================
-   * TRANSAKSI
-   * ==========================================================
-   */
+  /* TRANSAKSI */
 
   const transactions = await prisma.transaction.findMany({
     where: {
@@ -149,11 +145,7 @@ export default async function LaporanPage({
     },
   });
 
-  /*
-   * ==========================================================
-   * RINGKASAN PER HARI
-   * ==========================================================
-   */
+  /*RINGKASAN PER HARI*/
 
   const dailyMap = new Map<
     string,
@@ -195,11 +187,7 @@ export default async function LaporanPage({
     }
   }
 
-  /*
-   * ==========================================================
-   * DATA HARI
-   * ==========================================================
-   */
+  /* DATA HARI */
 
   const dailySales = getDaysBetween(start, end).map((date) => {
     const key = date.toISOString().slice(0, 10);
@@ -214,11 +202,7 @@ export default async function LaporanPage({
     );
   });
 
-  /*
-   * ==========================================================
-   * PAGINATION
-   * ==========================================================
-   */
+  /*PAGINATION*/
 
   const totalEntries = dailySales.length;
 
@@ -239,11 +223,7 @@ export default async function LaporanPage({
     )
     .reverse();
 
-  /*
-   * ==========================================================
-   * RINGKASAN TOTAL
-   * ==========================================================
-   */
+  /* RINGKASAN TOTAL */
 
   const totalRevenue = transactions.reduce((sum, tx) => sum + Number(tx.total), 0);
   const totalTransactions = transactions.length;
@@ -254,10 +234,8 @@ export default async function LaporanPage({
   const avgTransaction = totalTransactions > 0 ? totalRevenue / totalTransactions : 0;
 
   /*
-   * ==========================================================
-   * DATA PER PERIODE (untuk pilihan view)
-   * Otomatis sesuaikan agregasi berdasarkan jarak tanggal
-   * ==========================================================
+   DATA PER PERIODE
+   Otomatis sesuaikan agregasi berdasarkan jarak tanggal
    */
 
   type PeriodData = {
@@ -277,7 +255,7 @@ export default async function LaporanPage({
   // > 365 hari: per bulan
 
   if (activePeriod === "today") {
-    // Tampilan per jam untuk hari ini (00-23)
+    // Tampilan per jam untuk hari
     for (let i = 0; i < 24; i++) {
       const hourTransactions = transactions.filter(t => new Date(t.createdAt).getHours() === i);
       periodData.push({
@@ -288,7 +266,7 @@ export default async function LaporanPage({
       });
     }
   } else if (activePeriod === "week") {
-    // Tampilan 7 hari (Minggu sampai Sabtu atau hari ini ke belakang)
+    // Tampilan 7 hari (Minggu-Sabtu atau hari ini ke belakang)
     const days = getDaysBetween(start, end);
     for (const day of days) {
       const daySales = dailySales.find(d => d.date.toDateString() === day.toDateString());
@@ -300,7 +278,7 @@ export default async function LaporanPage({
       });
     }
   } else if (activePeriod === "month") {
-    // Tampilan per minggu (Minggu 1, 2, 3, 4)
+    // Tampilan per minggu(1-4)
     // 1-7 (Minggu 1), 8-14 (Minggu 2), 15-21 (Minggu 3), 22-end (Minggu 4)
     const weeks = [
         { label: "W1", start: 1, end: 7 },
@@ -318,7 +296,7 @@ export default async function LaporanPage({
         });
     }
   } else if (activePeriod === "year") {
-    // Tampilan 12 bulan
+    // Tampilan 12 bln
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
     for (let i = 0; i < 12; i++) {
       const monthSales = dailySales.filter(d => d.date.getMonth() === i);
@@ -341,11 +319,7 @@ export default async function LaporanPage({
     }
   }
 
-  /*
-   * ==========================================================
-   * URL
-   * ==========================================================
-   */
+  /* URL*/
 
   function buildQuery({
     tab: nextTab = tab,
@@ -377,11 +351,7 @@ export default async function LaporanPage({
     return query ? `?${query}` : "";
   }
 
-  /*
-   * ==========================================================
-   * DATA STOK
-   * ==========================================================
-   */
+  /*DATA STOK*/
 
   const lowStock = await prisma.product.findMany({
     where: {
@@ -395,11 +365,7 @@ export default async function LaporanPage({
     },
   });
 
-  /*
-   * ==========================================================
-   * DATA EXPIRED
-   * ==========================================================
-   */
+  /*DATA EXPIRED*/
 
   const now2 = new Date();
 
@@ -437,22 +403,14 @@ export default async function LaporanPage({
   const fromValue = start.toISOString().slice(0, 10);
   const toValue = end.toISOString().slice(0, 10);
 
-  /*
-   * ==========================================================
-   * DATA TERLARIS & KURANG DIMINATI
-   * ==========================================================
-   */
+  /*DATA TERLARIS & KURANG DIMINATI*/
 
   const [topSelling, lowInterest] = await Promise.all([
     getTopSellingProducts(10),
     getLowInterestProducts(10),
   ]);
 
-  /*
-   * ==========================================================
-   * RENDER
-   * ==========================================================
-   */
+  /*RENDER*/
 
   return (
     <div className="space-y-5">
@@ -467,9 +425,7 @@ export default async function LaporanPage({
         </p>
       </div>
 
-      {/* =====================================================
-          TAB + FILTER
-          ===================================================== */}
+      {/* TAB + FILTER */}
 
       <div className="bg-white border border-neutral-300 rounded-xl overflow-hidden">
         {/* TABS */}
@@ -618,9 +574,7 @@ export default async function LaporanPage({
         </div>
       </div>
 
-      {/* =====================================================
-          PENJUALAN
-          ===================================================== */}
+      {/* PENJUALAN */}
 
       {tab === "penjualan" && (
         <>
@@ -675,14 +629,12 @@ export default async function LaporanPage({
                     const paddingX = 30;
                     const paddingY = 30;
 
-                    // Generate smooth path points (Bezier Curve)
                     const points = periodData.map((d, i) => {
                       const x = paddingX + (i / Math.max(periodData.length - 1, 1)) * (width - paddingX * 2);
                       const y = height - paddingY - (d.revenue / maxVal) * (height - paddingY * 2);
                       return { x, y, data: d };
                     });
 
-                    // Build d attribute for SVG Smooth Curve
                     let pathD = `M ${points[0].x} ${points[0].y}`;
                     for (let i = 0; i < points.length - 1; i++) {
                       const curr = points[i];
@@ -696,14 +648,13 @@ export default async function LaporanPage({
 
                     const areaD = `${pathD} L ${points[points.length - 1].x} ${height - paddingY} L ${points[0].x} ${height - paddingY} Z`;
 
-                    // Smart tooltip positioning (hindari offside kiri/kanan)
                     const getTooltipX = (x: number) => {
                       if (x < 80) return x + 10;
                       if (x > width - 80) return x - 90;
                       return x - 40;
                     };
 
-                    // Tampilkan semua label untuk "today" (24 jam) tanpa ada labelStep yang terlewat
+                    // Tampilkan semua label untuk "today" (24 jam)
                     const labelStep = activePeriod === "today" ? 1 : (periodData.length > 12 ? Math.ceil(periodData.length / 12) : 1);
 
                     return (
@@ -805,9 +756,7 @@ export default async function LaporanPage({
             </div>
           </div>
 
-          {/* =================================================
-              RINCIAN PENJUALAN
-              ================================================= */}
+          {/* RINCIAN PENJUALAN */}
 
           <div className="bg-white border border-neutral-300 rounded-xl overflow-hidden">
             {/* TITLE */}
@@ -1033,9 +982,7 @@ export default async function LaporanPage({
         </>
       )}
 
-      {/* =====================================================
-          STOK RENDAH
-          ===================================================== */}
+      {/* STOK RENDAH */}
 
       {tab === "stok" && (
         <div className="bg-white border border-neutral-300 rounded-xl overflow-hidden">
@@ -1258,9 +1205,7 @@ export default async function LaporanPage({
           </div>
         </div>
       )}
-      {/* =====================================================
-          TERLARIS & KURANG DIMINATI
-          ===================================================== */}
+      {/* TERLARIS & KURANG DIMINATI*/}
 
       {tab === "terlaris" && (
         <div className="space-y-5">

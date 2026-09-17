@@ -14,11 +14,7 @@ export async function getStockMovements(productId: string) {
   });
 }
 
-/**
- * Stock In / Stock Out / Penyesuaian manual (F-INV-01..03). Atomik:
- * update stok produk + catat StockMovement dalam satu transaksi.
- * `delta` sudah bertanda dari sisi client (positif = nambah, negatif = kurang).
- */
+ /* Stock In / Stock Out*/
 export async function recordStockMovement(
   locale: string,
   input: { productId: string; delta: number; type: StockMovementType; note?: string }

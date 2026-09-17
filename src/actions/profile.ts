@@ -11,10 +11,7 @@ export async function getOwnProfile() {
   return prisma.user.findUniqueOrThrow({ where: { id: session.userId } });
 }
 
-/**
- * Foto profil boleh diganti siapa saja yang login (Admin & Kasir),
- * karena murni tampilan, bukan identitas transaksi.
- */
+/* Foto profil boleh diganti siapa saja yang login (Admin & Kasir),*/
 export async function updateOwnAvatar(locale: string, avatarDataUrl: string) {
   const session = await getSession();
   if (!session) throw new Error("UNAUTHENTICATED");
@@ -26,11 +23,7 @@ export async function updateOwnAvatar(locale: string, avatarDataUrl: string) {
   revalidatePath(`/${locale}`, "layout");
 }
 
-/**
- * Ubah username/password HANYA untuk Admin (mengubah identitas/akses
- * miliknya sendiri). Kasir tidak boleh mengubah ini sama sekali --
- * mencegah kasir "menyamar" jadi identitas lain saat input transaksi.
- */
+/*Ubah username/password HANYA untk Admin. Kasir tidak boleh mengubah ini sama sekali,*/
 export async function updateOwnProfile(
   locale: string,
   input: { username: string; newPassword?: string }

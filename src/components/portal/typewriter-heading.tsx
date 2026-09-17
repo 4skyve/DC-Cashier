@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 interface TypewriterHeadingProps {
-  /** Each entry renders as its own line (like a manual <br/>) */
+  /** Each entry renders as its own line  */
   lines: string[];
   className?: string;
   /** ms per character */

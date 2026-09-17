@@ -113,8 +113,8 @@ export async function updateUser(
     );
   }
 
-  // Jangan mengubah session akun yang sedang login
-  // selain data username/role yang memang boleh diedit.
+
+  // selain data username/role yang blh diedit.
   await prisma.user.update({
     where: { id },
     data,

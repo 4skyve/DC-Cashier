@@ -13,7 +13,6 @@ export default async function LoginPage({
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-2">
       <div className="hidden md:flex bg-primary-700 items-center justify-center p-10">
         <div className="text-center text-white">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="https://cdn.phototourl.com/free/2026-08-30-5da21fa0-19e9-43de-99db-3df48066eb24.png" alt="Duo Caesar" className="mx-auto mb-2 w-64" />
         </div>
       </div>

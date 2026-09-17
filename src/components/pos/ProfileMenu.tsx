@@ -26,7 +26,6 @@ export default function ProfileMenu({
   }, []);
 
   const avatar = avatarUrl ? (
-    // eslint-disable-next-line @next/next/no-img-element
     <img src={avatarUrl} alt="" className="h-9 w-9 rounded-full object-cover shrink-0" />
   ) : (
     <div className="h-9 w-9 rounded-full bg-primary-700 text-white text-sm flex items-center justify-center font-semibold shrink-0">
@@ -58,7 +57,6 @@ export default function ProfileMenu({
             onClick={() => setOpen(false)}
             className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-neutral-600 hover:bg-neutral-50"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/icons/edit-profil.svg" alt="" className="h-4 w-4" /> Profil Saya
           </Link>
           <Link
@@ -67,15 +65,13 @@ export default function ProfileMenu({
             onClick={() => setOpen(false)}
             className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-neutral-600 hover:bg-neutral-50"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/icons/toko-online.svg" alt="" className="h-4 w-4" /> Lihat Toko Online
+            <img src="/icons/toko-online.svg" alt="" className="h-4 w-4" /> Lihat Web Katalog
           </Link>
           <form action={logoutAction.bind(null, locale)}>
             <button
               type="submit"
               className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 border-t border-neutral-100"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/icons/logout.svg" alt="" className="h-4 w-4" /> Logout
             </button>
           </form>

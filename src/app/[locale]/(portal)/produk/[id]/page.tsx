@@ -4,7 +4,6 @@ import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 
-// Ganti dengan nomor WA admin penjualan asli (atau ambil dari env var)
 const ADMIN_WHATSAPP_NUMBER = "6281234567890";
 
 const placeholderImage =

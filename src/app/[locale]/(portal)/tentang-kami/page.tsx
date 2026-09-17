@@ -33,9 +33,7 @@ export default async function TentangKamiPage({
   return (
     <main className="bg-[#EEF3FF]">
 
-      {/* =====================================================
-          HERO
-      ===================================================== */}
+      {/* HERO*/}
       <section className="relative h-[300px] overflow-hidden sm:h-[360px] md:h-[420px] lg:h-[465px]">
 
         {/* Background */}
@@ -70,9 +68,7 @@ export default async function TentangKamiPage({
       </section>
 
 
-      {/* =====================================================
-          PROFIL PERUSAHAAN
-      ===================================================== */}
+      {/* PROFIL TOKO*/}
       <section className="mx-auto max-w-[1200px] px-5 py-12 sm:py-16 md:px-6 md:py-20 lg:px-0">
 
         <div className="grid grid-cols-1 items-center gap-8 sm:gap-10 md:grid-cols-2 md:gap-16">
@@ -128,9 +124,7 @@ export default async function TentangKamiPage({
       </section>
 
 
-      {/* =====================================================
-          GALERI SINGKAT
-      ===================================================== */}
+      {/* GALERI SINGKAT*/}
       <section className="mx-auto max-w-[1200px] px-5 pb-12 sm:pb-16 md:px-6 lg:px-0">
 
         <AnimateOnScroll>
@@ -158,9 +152,7 @@ export default async function TentangKamiPage({
       </section>
 
 
-      {/* =====================================================
-          MISI & NILAI INTI
-      ===================================================== */}
+      {/* MISI & NILAI INTI*/}
       <section className="mx-auto max-w-[1200px] px-5 pb-12 sm:pb-16 md:px-6 lg:px-0">
 
         <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-[1.7fr_.8fr]">
@@ -256,9 +248,7 @@ export default async function TentangKamiPage({
       </section>
 
 
-      {/* =====================================================
-          CTA
-      ===================================================== */}
+      {/* CTA */}
       <section className="mx-auto max-w-[1200px] px-5 pb-12 sm:pb-16 md:px-6 lg:px-0">
 
         <AnimateOnScroll y={20}>

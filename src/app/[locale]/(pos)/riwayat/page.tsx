@@ -3,9 +3,11 @@ import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import type { Prisma } from "@prisma/client";
 import RiwayatRowActions from "./RiwayatRowActions";
 import RiwayatSortSelect from "./RiwayatSortSelect";
 import KasirFilterSelect from "./KasirFilterSelect";
+import PaymentFilterSelect from "./PaymentFilterSelect";
 
 export default async function RiwayatPage({
   params,
@@ -16,11 +18,12 @@ export default async function RiwayatPage({
     page?: string;
     sort?: string;
     kasirId?: string;
+    payment?: string;
     q?: string;
   }>;
 }) {
   const { locale } = await params;
-  const { page, sort, kasirId, q } = await searchParams;
+  const { page, sort, kasirId, payment, q } = await searchParams;
 
   const session = await getSession();
   if (!session) redirect(`/${locale}/login`);
@@ -66,9 +69,12 @@ export default async function RiwayatPage({
       : {}
     : { userId: session.userId };
 
-  const whereClause = { ...baseFilter, ...searchFilter };
+  const validPayment = payment === "cash" || payment === "transfer" ? payment : undefined;
+  const paymentFilter: Prisma.TransactionWhereInput = validPayment ? { paymentMethod: validPayment as any } : {};
 
-  const [totalCount, totalRevenue, transactions, allKasirs] =
+  const whereClause: Prisma.TransactionWhereInput = { ...baseFilter, ...searchFilter, ...paymentFilter };
+
+  const [totalCount, totalRevenue, cashRevenue, transferRevenue, transactions, allKasirs] =
     await Promise.all([
       prisma.transaction.count({ where: whereClause }),
       isAdmin
@@ -77,14 +83,20 @@ export default async function RiwayatPage({
           where: whereClause,
         })
         : Promise.resolve({ _sum: { total: 0 } }),
+      prisma.transaction.aggregate({
+        _sum: { total: true },
+        where: { ...baseFilter, ...searchFilter, paymentMethod: "cash" },
+      }),
+      prisma.transaction.aggregate({
+        _sum: { total: true },
+        where: { ...baseFilter, ...searchFilter, paymentMethod: "transfer" },
+      }),
       prisma.transaction.findMany({
-        include: { user: true },
         where: whereClause,
         orderBy,
         skip: (currentPage - 1) * perPage,
         take: perPage,
       }),
-      // Daftar semua kasir untuk filter dropdown (admin only)
       isAdmin
         ? prisma.user.findMany({
           select: { id: true, username: true, role: true },
@@ -94,25 +106,26 @@ export default async function RiwayatPage({
     ]);
 
   const totalPages = Math.max(1, Math.ceil(totalCount / perPage));
-  const revenue = Number(
-    "total" in (totalRevenue._sum ?? {})
-      ? (totalRevenue._sum as { total: number | null }).total ?? 0
-      : 0
-  );
+  const revenue = Number(totalRevenue?._sum?.total ?? 0);
+  const cashSum = Number(cashRevenue?._sum?.total ?? 0);
+  const transferSum = Number(transferRevenue?._sum?.total ?? 0);
 
   function buildQuery({
     page: pageNumber = currentPage,
     sort: sortValue = currentSort,
     kasirId: kid = kasirId,
+    payment: payVal = payment,
   }: {
     page?: number;
     sort?: string;
     kasirId?: string;
+    payment?: string;
   } = {}) {
     const p = new URLSearchParams();
     if (sortValue !== "newest") p.set("sort", sortValue);
     if (pageNumber > 1) p.set("page", String(pageNumber));
     if (kid) p.set("kasirId", kid);
+    if (payVal) p.set("payment", payVal);
     const query = p.toString();
     return query ? `?${query}` : "";
   }
@@ -152,23 +165,33 @@ export default async function RiwayatPage({
         )}
       </div>
 
-      {/* STAT CARDS — admin only */}
-      {isAdmin && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="rounded-xl border border-neutral-200 bg-white p-5">
-            <p className="text-sm text-neutral-500">Total Transaksi</p>
-            <p className="text-2xl font-bold text-primary-800 mt-1">
-              {totalCount}
-            </p>
-          </div>
-          <div className="rounded-xl border border-neutral-200 bg-white p-5">
-            <p className="text-sm text-neutral-500">Total Pendapatan</p>
-            <p className="text-2xl font-bold text-primary-800 mt-1">
-              {tc("currencyPrefix")} {revenue.toLocaleString("id-ID")}
-            </p>
-          </div>
+      {/* STAT CARDS */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="rounded-xl border border-neutral-200 bg-white p-5">
+          <p className="text-sm text-neutral-500">Total Transaksi</p>
+          <p className="text-2xl font-bold text-primary-800 mt-1">
+            {totalCount}
+          </p>
         </div>
-      )}
+        <div className="rounded-xl border border-neutral-200 bg-white p-5">
+          <p className="text-sm text-neutral-500">Total Pendapatan</p>
+          <p className="text-2xl font-bold text-primary-800 mt-1">
+            {tc("currencyPrefix")} {revenue.toLocaleString("id-ID")}
+          </p>
+        </div>
+        <div className="rounded-xl border border-neutral-200 bg-white p-5">
+          <p className="text-sm text-neutral-500">Masuk Tunai</p>
+          <p className="text-2xl font-bold text-green-600 mt-1">
+            {tc("currencyPrefix")} {cashSum.toLocaleString("id-ID")}
+          </p>
+        </div>
+        <div className="rounded-xl border border-neutral-200 bg-white p-5">
+          <p className="text-sm text-neutral-500">Masuk Transfer</p>
+          <p className="text-2xl font-bold text-blue-600 mt-1">
+            {tc("currencyPrefix")} {transferSum.toLocaleString("id-ID")}
+          </p>
+        </div>
+      </div>
 
       {/* TABLE */}
       <div className="rounded-xl border border-neutral-200 bg-white overflow-hidden">
@@ -189,11 +212,11 @@ export default async function RiwayatPage({
           </div>
 
           <div className="flex items-center gap-3 flex-wrap">
-            {/* FILTER KASIR — admin only */}
+            {/* FILTER KASIR, admin only */}
             {isAdmin && (
               <div className="flex items-center gap-2">
                 <span className="text-xs text-neutral-500 whitespace-nowrap">
-                  Filter Kasir:
+                  Kasir:
                 </span>
                 <KasirFilterSelect
                   allKasirs={allKasirs}
@@ -201,6 +224,13 @@ export default async function RiwayatPage({
                 />
               </div>
             )}
+
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-neutral-500 whitespace-nowrap">
+                Pembayaran:
+              </span>
+              <PaymentFilterSelect value={payment} />
+            </div>
 
             <RiwayatSortSelect value={currentSort} />
           </div>
@@ -259,10 +289,10 @@ export default async function RiwayatPage({
                         </div>
                       </td>
 
-                      {/* KASIR — admin only */}
+                      {/* KASIR, admin only */}
                       {isAdmin && (
                         <td className="px-5 py-4 text-neutral-600">
-                          {tx.user?.username ?? "-"}
+                          -
                         </td>
                       )}
 

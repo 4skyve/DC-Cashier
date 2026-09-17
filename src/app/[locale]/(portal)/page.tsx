@@ -5,9 +5,7 @@ import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { ClickableImage } from "@/components/portal/clickable-image";
 import { TypewriterHeading } from "@/components/portal/typewriter-heading";
 
-/* =====================================================
-   MANUAL ICONS (SVG inline, no external icon library)
-===================================================== */
+/* MANUAL ICONS  */
 function IconPackage({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -162,7 +160,7 @@ export default async function LandingPage({
     },
   ];
 
-  // Gambar kategori: ambil random dari salah satu produk yang ada di kategori tsb (fallback placeholder kalau belum ada produk bergambar)
+  // Gambar kategori: ambil random dari salah satu produk yang ada di kategori tsb 
   const categoryImageMap = new Map<string, string>();
   for (const category of categories) {
     const categoryProducts = products.filter(
@@ -178,9 +176,7 @@ export default async function LandingPage({
   return (
     <div className="bg-[#EEF3FF]">
 
-      {/* =====================================================
-          HERO
-      ===================================================== */}
+      {/* HERO */}
       <section className="relative overflow-hidden rounded-b-[28px] bg-[#1F416B] text-white sm:rounded-b-[36px]">
         <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-8 px-5 py-10 sm:gap-10 sm:py-14 md:grid-cols-2 md:px-6 md:py-20 lg:px-0">
 
@@ -249,9 +245,7 @@ export default async function LandingPage({
       </section>
 
 
-      {/* =====================================================
-          CATEGORY
-      ===================================================== */}
+      {/* CATEGORY*/}
       <section className="relative z-10 mx-auto -mt-6 max-w-[1120px] px-5 sm:-mt-7 md:px-6 lg:px-0">
         <AnimateOnScroll>
           <div className="rounded-2xl bg-white p-4 shadow-[0_12px_30px_rgba(0,0,0,0.12)] sm:p-5 md:p-6">
@@ -377,9 +371,7 @@ export default async function LandingPage({
       </section>
 
 
-      {/* =====================================================
-          PRODUK TERLARIS
-      ===================================================== */}
+      {/* PRODUK TERLARIS*/}
       <section className="mx-auto max-w-[1200px] px-5 pb-12 sm:pb-16 md:px-6 lg:px-0">
 
         <div className="mb-4 flex flex-wrap items-center justify-between gap-2 sm:mb-5">
@@ -457,9 +449,7 @@ export default async function LandingPage({
       </section>
 
 
-      {/* =====================================================
-          CTA
-      ===================================================== */}
+      {/* CTA*/}
       <section className="mx-auto max-w-[1200px] px-5 pb-12 sm:pb-16 md:px-6 lg:px-0">
         <div className="rounded-2xl bg-[#1F416B] px-6 py-9 text-white sm:py-10 md:px-8 md:py-12">
 
@@ -493,9 +483,7 @@ export default async function LandingPage({
       </section>
 
 
-      {/* =====================================================
-          KENAPA MEMILIH KAMI
-      ===================================================== */}
+      {/* KENAPA MEMILIH KAMI */}
       <section className="mx-auto max-w-[1200px] px-5 pb-12 sm:pb-16 md:px-6 lg:px-0">
 
         <AnimateOnScroll>

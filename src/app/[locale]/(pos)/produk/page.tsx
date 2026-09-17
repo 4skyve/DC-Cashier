@@ -312,7 +312,7 @@ export default async function ProdukPage({
         </div>
       )}
 
-      {/* ================= GRID ================= */}
+      {/*  GRID  */}
       {currentView === "grid" &&
         result.items.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-5">
@@ -327,7 +327,7 @@ export default async function ProdukPage({
                 <div className="aspect-[16/10] rounded-lg bg-neutral-100 overflow-hidden mb-4">
 
                   {p.imageUrl ? (
-                    // eslint-disable-next-line @next/next/no-img-element
+                    
                     <img
                       src={p.imageUrl}
                       alt={p.name}
@@ -409,7 +409,7 @@ export default async function ProdukPage({
           </div>
         )}
 
-      {/* ================= LIST ================= */}
+      {/*  LIST  */}
       {currentView === "list" &&
         result.items.length > 0 && (
           <div className="bg-white border border-neutral-200 rounded-xl overflow-x-auto">
@@ -467,7 +467,7 @@ export default async function ProdukPage({
                         <div className="h-11 w-11 rounded-lg bg-neutral-100 overflow-hidden shrink-0">
 
                           {p.imageUrl ? (
-                            // eslint-disable-next-line @next/next/no-img-element
+                            
                             <img
                               src={p.imageUrl}
                               alt={p.name}

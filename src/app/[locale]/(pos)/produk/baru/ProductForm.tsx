@@ -150,7 +150,7 @@ export default function ProductForm({
         <div className="flex items-center gap-4">
           <div className="h-24 w-24 rounded-xl bg-neutral-50 border-2 border-dashed border-neutral-200 overflow-hidden shrink-0 flex items-center justify-center text-neutral-300 text-3xl">
             {imageUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
+            
               <img
                 src={imageUrl}
                 alt=""

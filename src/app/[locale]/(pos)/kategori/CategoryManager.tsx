@@ -56,30 +56,21 @@ export default function CategoryManager({
   const [isPending, startTransition] =
     useTransition();
 
-  /*
-   * Ambil kategori yang sedang dipilih
-   * langsung dari props database terbaru.
-   */
+  /* Ambil kategori yang sedang dipilih */
   const selectedCategory =
     categories.find(
       (category) =>
         category.id === selectedCategoryId
     ) ?? null;
 
-  /*
-   * TOTAL PRODUK
-   */
+  /* TOTAL PRODUK */
   const totalProducts = categories.reduce(
     (total, category) =>
       total + category._count.products,
     0
   );
 
-  /*
-   * ================================
-   * CREATE CATEGORY
-   * ================================
-   */
+  /* CREATE CATEGORY */
 
   function handleCreate(
     e: React.FormEvent<HTMLFormElement>
@@ -108,11 +99,7 @@ export default function CategoryManager({
     });
   }
 
-  /*
-   * ================================
-   * EDIT CATEGORY
-   * ================================
-   */
+  /* EDIT CATEGORY */
 
   function openEdit(category: Category) {
     setEditingId(category.id);
@@ -151,11 +138,7 @@ export default function CategoryManager({
     });
   }
 
-  /*
-   * ================================
-   * DELETE CATEGORY
-   * ================================
-   */
+  /* DELETE CATEGORY */
 
   function handleDelete(id: string) {
     setError(null);
@@ -176,11 +159,7 @@ export default function CategoryManager({
     });
   }
 
-  /*
-   * ================================
-   * PRODUCT PANEL
-   * ================================
-   */
+  /* PRODUCT PANEL */
 
   function toggleProducts(
     category: Category
@@ -197,11 +176,7 @@ export default function CategoryManager({
     }
   }
 
-  /*
-   * ================================
-   * RUPIAH
-   * ================================
-   */
+  /* RUPIAH */
 
   function formatRupiah(
     value: number
@@ -218,9 +193,7 @@ export default function CategoryManager({
 
   return (
     <>
-      {/* =====================================
-          MAIN CONTENT
-      ===================================== */}
+      {/* MAIN CONTENT*/}
 
       <div
         className={`space-y-6 transition-all ${selectedCategory
@@ -228,9 +201,7 @@ export default function CategoryManager({
             : ""
           }`}
       >
-        {/* =====================================
-            HEADER
-        ===================================== */}
+        {/* HEADER */}
 
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-lg border border-neutral-300 bg-[#f3f5ff] flex items-center justify-center">
@@ -262,9 +233,7 @@ export default function CategoryManager({
           </div>
         </div>
 
-        {/* =====================================
-            STATISTICS
-        ===================================== */}
+        {/* STATISTICS */}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[610px]">
           {/* TOTAL KATEGORI */}
@@ -353,9 +322,7 @@ export default function CategoryManager({
           </div>
         </div>
 
-        {/* =====================================
-            TAMBAH KATEGORI — admin only
-        ===================================== */}
+        {/* TAMBAH KATEGORI — admin only*/}
 
         {isAdmin ? (
           <div className="border border-neutral-300 rounded-lg bg-white p-6 max-w-[610px]">
@@ -419,9 +386,7 @@ export default function CategoryManager({
           </div>
         )}
 
-        {/* =====================================
-            ERROR
-        ===================================== */}
+        {/*ERROR*/}
 
         {error && (
           <div className="max-w-[610px] rounded-lg border border-red-200 bg-red-50 px-4 py-3">
@@ -431,9 +396,7 @@ export default function CategoryManager({
           </div>
         )}
 
-        {/* =====================================
-            DAFTAR KATEGORI
-        ===================================== */}
+        {/* DAFTAR KATEGORI*/}
 
         <div className="border border-neutral-300 rounded-lg bg-white max-w-[610px] overflow-hidden">
           <div className="px-6 py-4 border-b border-neutral-300">
@@ -585,9 +548,7 @@ export default function CategoryManager({
         </div>
       </div>
 
-      {/* =====================================
-          PANEL PRODUK
-      ===================================== */}
+      {/* PANEL PRODUK*/}
 
       {selectedCategory && (
         <div className="fixed top-[72px] right-0 bottom-0 w-[360px] bg-white border-l border-neutral-300 shadow-lg z-40">
@@ -740,9 +701,7 @@ export default function CategoryManager({
         </div>
       )}
 
-      {/* =====================================
-          EDIT MODAL
-      ===================================== */}
+      {/* EDIT MODAL */}
 
       {editingId && (
         <div className="fixed inset-0 z-50 bg-black/35 flex items-center justify-center px-4">

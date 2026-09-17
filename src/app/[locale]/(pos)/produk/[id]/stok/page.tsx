@@ -84,7 +84,7 @@ export default async function ProductStockPage({
     redirect(`/${locale}/login`);
   }
 
-  // Kasir tidak dapat mengakses halaman riwayat stok
+  // Kasir tidak dapat mengakses hlmn riwayat stok
   if (session.role !== "admin") {
     redirect(`/${locale}/produk`);
   }

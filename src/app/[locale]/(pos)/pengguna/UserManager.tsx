@@ -422,9 +422,7 @@ export default function UserManager({
         </div>
       )}
 
-      {/* ================================================= */}
       {/* USER TABLE */}
-      {/* ================================================= */}
 
       <div className="bg-white border border-neutral-200 rounded-xl overflow-hidden">
 
@@ -477,7 +475,6 @@ export default function UserManager({
                       >
 
                         {u.avatarUrl ? (
-                          // eslint-disable-next-line @next/next/no-img-element
                           <img
                             src={u.avatarUrl}
                             alt=""

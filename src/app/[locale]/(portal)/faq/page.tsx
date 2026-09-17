@@ -83,9 +83,7 @@ export default function FAQPage() {
   return (
     <main className="bg-[#EEF3FF]">
 
-      {/* =====================================================
-          HERO FAQ
-      ===================================================== */}
+      {/*  HERO FAQ*/}
       <section className="mx-auto max-w-[1200px] px-5 pt-8 sm:pt-12 md:px-6 md:pt-11 lg:px-0">
 
         <AnimateOnScroll y={16}>
@@ -108,9 +106,7 @@ export default function FAQPage() {
       </section>
 
 
-      {/* =====================================================
-          FAQ UMUM
-      ===================================================== */}
+      {/* FAQ UMUM */}
       <section className="mx-auto max-w-[1200px] px-5 py-12 sm:py-16 md:px-6 md:py-20 lg:px-0">
 
         <AnimateOnScroll>
@@ -153,17 +149,13 @@ export default function FAQPage() {
       </section>
 
 
-      {/* =====================================================
-          DIVIDER
-      ===================================================== */}
+      {/* DIVIDER  */}
       <div className="mx-auto max-w-[1200px] px-5 md:px-6 lg:px-0">
         <div className="h-px bg-[#DCE3F0]" />
       </div>
 
 
-      {/* =====================================================
-          FAQ PRODUK & LAYANAN
-      ===================================================== */}
+      {/* FAQ PRODUK & LAYANAN */}
       <section className="mx-auto max-w-[1200px] px-5 py-12 pb-14 sm:py-14 sm:pb-16 md:px-6 md:py-16 md:pb-20 lg:px-0">
 
         <AnimateOnScroll>

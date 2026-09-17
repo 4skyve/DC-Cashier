@@ -1,7 +1,6 @@
 import PortalNavbar from "@/components/portal/Navbar";
 import PortalFooter from "@/components/portal/Footer";
-// CaesAiWidget disembunyikan sementara — belum fix mau dipakai atau tidak.
-// Untuk mengaktifkan kembali: hapus komentar di bawah ini.
+
 // import CaesAiWidget from "@/components/portal/CaesAiWidget";
 
 export default async function PortalLayout({

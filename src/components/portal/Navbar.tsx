@@ -37,32 +37,25 @@ export default function PortalNavbar({
   ];
 
   const isActive = (href: string) => {
-    // Beranda harus exact match
     if (href === `/${locale}`) {
       return pathname === href;
     }
-
-    // Halaman lain aktif juga untuk sub-halamannya
-    // contoh /katalog/123 tetap membuat Produk aktif
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
   return (
     <header className="sticky top-0 z-30 bg-white">
-      {/* BARIS ATAS */}
       <div className="mx-auto flex h-[64px] max-w-[1280px] items-center px-5 md:px-8">
-        {/* LOGO */}
         <Link
           href={`/${locale}`}
           className="flex shrink-0 items-center gap-2"
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[#1F416B] text-white">
-            
-          </div>
+    
+          <img src="/icons/kasir4.jpg" alt="Logo" className="h-9 w-9 rounded-md object-cover" />
 
           <div className="leading-none">
             <div className="text-[17px] font-bold tracking-tight text-[#1F416B]">
-              DuoCaesar
+              Duo Caesar
             </div>
 
             <div className="mt-1 text-[8px] font-medium text-neutral-500">
@@ -71,12 +64,10 @@ export default function PortalNavbar({
           </div>
         </Link>
 
-        {/* SEARCH */}
         <div className="mx-auto w-full max-w-[510px] px-6">
           <PortalSearch locale={locale} />
         </div>
 
-        {/* HUBUNGI KAMI */}
         <Link
           href={`/${locale}/kontak`}
           className="hidden shrink-0 rounded-full bg-[#1F416B] px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-[#173555] md:block"
@@ -85,7 +76,6 @@ export default function PortalNavbar({
         </Link>
       </div>
 
-      {/* BARIS NAVIGASI */}
       <div className="border-t border-neutral-100">
         <nav className="flex h-[42px] items-center justify-center gap-8">
           {links.map((link) => {

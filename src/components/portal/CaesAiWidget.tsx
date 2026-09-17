@@ -5,9 +5,7 @@ import { Bot, X, Send, Sparkles, MessageCircle } from "lucide-react";
 
 type Message = { role: "user" | "assistant"; text: string };
 
-/**
- * Simulasi respons CaesAi di sisi client.
- */
+/*Simulasi respons CaesAi di sisi client.*/
 function getMockReply(): string {
   const replies = [
     "Terima kasih atas pertanyaannya! Fitur AI CaesAi masih dalam pengembangan, jawaban pintar akan segera hadir.",

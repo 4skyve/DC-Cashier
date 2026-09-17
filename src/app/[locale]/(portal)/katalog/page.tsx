@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getCategories } from "@/actions/product";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 
-// Fallback kalau produk belum punya imageUrl di DB
+// gambar sblm db
 const placeholderImages = [
   "https://images.unsplash.com/photo-1621939514649-280e2aa55345?auto=format&fit=crop&w=500&q=80",
   "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=500&q=80",
@@ -25,7 +25,7 @@ const SORT_ORDER_BY: Record<string, Record<string, "asc" | "desc">> = {
   "stock-desc": { stock: "desc" },
 };
 
-// Windowed page numbers, misal: 1 ... 4 5 6 ... 12
+// page numbers
 function getPageNumbers(current: number, total: number): (number | "...")[] {
   const delta = 1;
   const range: (number | "...")[] = [];

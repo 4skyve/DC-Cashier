@@ -43,7 +43,6 @@ export default function Sidebar({
     <aside className="hidden md:flex w-60 shrink-0 border-r border-neutral-100 bg-white flex-col h-screen sticky top-0">
       <div className="px-5 py-5 border-b border-neutral-100">
         <div className="flex items-center gap-2.5">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/icons/kasir4.jpg" alt="" className="h-9 w-9 shrink-0" />
           <div>
             <div className="font-bold text-primary-800 leading-tight text-[15px]">Cashier - </div>
@@ -68,7 +67,6 @@ export default function Sidebar({
                   : "text-neutral-600 hover:bg-neutral-100"
               }`}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={`/icons/${key}.svg`} alt="" className="h-5 w-5 shrink-0" />
               {t(key)}
             </Link>

@@ -72,11 +72,11 @@ export default function ProfileForm({
 
   return (
     <div className="space-y-4">
-      {/* Foto Profil - boleh diubah semua role */}
+      {/* Foto Profil blh diubah semua role */}
       <div className="bg-white border border-neutral-200 rounded-xl p-5 flex items-center gap-4">
         <div className="h-16 w-16 rounded-full bg-primary-700 overflow-hidden flex items-center justify-center text-white text-xl font-semibold shrink-0">
           {avatarPreview ? (
-            // eslint-disable-next-line @next/next/no-img-element
+            
             <img src={avatarPreview} alt="" className="h-full w-full object-cover" />
           ) : (
             user.username.slice(0, 1).toUpperCase()
@@ -106,7 +106,7 @@ export default function ProfileForm({
         </div>
       </div>
 
-      {/* Username & Password - admin only, kasir read-only */}
+      {/* Username & Password admin only, kasir read-only */}
       <form onSubmit={handleSubmit} className="bg-white border border-neutral-200 rounded-xl p-5 space-y-4">
         <div>
           <label className="text-sm font-medium text-neutral-700 block mb-1.5">Username</label>

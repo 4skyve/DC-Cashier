@@ -13,9 +13,7 @@ export default async function KontakPage({
   return (
     <main className="min-h-screen bg-[#EEF3FF]">
 
-      {/* =====================================================
-          HEADER
-      ===================================================== */}
+      {/* HEADER */}
       <section className="mx-auto max-w-[1200px] px-5 pt-8 sm:pt-10 md:px-6 lg:px-0">
 
         <AnimateOnScroll y={14}>
@@ -38,14 +36,12 @@ export default async function KontakPage({
       </section>
 
 
-      {/* =====================================================
-          CONTACT CARDS
-      ===================================================== */}
+      {/*  CONTACT CARDS */}
       <section className="mx-auto max-w-[1200px] px-5 pt-6 sm:pt-8 md:px-6 lg:px-0">
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
 
-          {/* WHATSAPP */}
+          {/* WA */}
           <AnimateOnScroll delay={0} y={16}>
             <div className="group relative min-h-[140px] overflow-hidden rounded-xl border border-[#DCE2EC] bg-white p-4 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#22D56B]/40 hover:shadow-md sm:p-5">
 
@@ -131,9 +127,7 @@ export default async function KontakPage({
       </section>
 
 
-      {/* =====================================================
-          OPERASIONAL + CTA
-      ===================================================== */}
+      {/* OPERASIONAL + CTA */}
       <section className="mx-auto max-w-[1200px] px-5 py-9 pb-14 sm:py-10 sm:pb-16 md:px-6 lg:px-0">
 
         <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2">

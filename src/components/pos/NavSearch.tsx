@@ -14,7 +14,6 @@ export default function NavSearch() {
   const [value, setValue] = useState(searchParams.get("q") ?? "");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Sync value when URL changes (e.g. navigating between pages)
   useEffect(() => {
     setValue(searchParams.get("q") ?? "");
   }, [searchParams]);

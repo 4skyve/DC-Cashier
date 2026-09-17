@@ -29,7 +29,6 @@ export function AnimateOnScroll({
       setVisible(true);
     };
 
-    // Safety net: kalau observer gagal/tidak trigger, paksa muncul.
     const fallback = setTimeout(show, 1000);
 
     const observer = new IntersectionObserver(

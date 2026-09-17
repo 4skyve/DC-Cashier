@@ -2,10 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 
-/**
- * F-LANG-01..05: switch bahasa ID/EN, default ID, hanya UI level
- * (label statis) -- data yang diinput pengguna tidak diterjemahkan.
- */
+/*switch bahasa ID/EN, default ID, hanya UI level. (label statis) data yang diinput pengguna tidak diterjemahkan.*/
 export default function LocaleSwitcher({ locale }: { locale: string }) {
   const pathname = usePathname();
   const router = useRouter();

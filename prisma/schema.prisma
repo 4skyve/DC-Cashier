@@ -104,8 +104,7 @@ model TransactionItem {
   @@map("transaction_items")
 }
 
-/// Singleton -- selalu hanya 1 baris data.
-/// F-SET-01..09: tidak ada lagi field terkait pembayaran online
+/// F-SET-01..09: tidak ada lagi field yg terkait pembayaran online
 /// (bank/QRIS/COD) karena katalog tidak memiliki fungsi transaksi.
 model StoreSetting {
   id                 String  @id @default(cuid())

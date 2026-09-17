@@ -13,9 +13,7 @@ function generateTransactionNumber() {
   return `TRX-${stamp}-${Math.floor(Math.random() * 900 + 100)}`;
 }
 
-/**
- * Ambil daftar transaksi dengan pagination.
- */
+/* Ambil daftar transaksi dengan pagination. */
 export async function getTransactions(opts: {
   page?: number;
   perPage?: number;
@@ -39,7 +37,7 @@ export async function getTransactions(opts: {
 /**
  * Retur/Refund transaksi POS: mengembalikan stok tiap item, mencatat
  * StockMovement tipe "return", dan menandai transaksi berstatus "returned".
- * Hanya Admin. Atomik (NF-09).
+ * hnya Admin
  */
 export async function refundTransaction(locale: string, transactionId: string) {
   const session = await getSession();

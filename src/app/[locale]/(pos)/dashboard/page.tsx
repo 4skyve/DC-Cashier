@@ -22,7 +22,7 @@ export default async function DashboardPage({
   startOfDay.setHours(0, 0, 0, 0);
 
   if (isAdmin) {
-    /* =================== ADMIN DASHBOARD =================== */
+    /*  ADMIN DASHBOARD  */
     const [transactionsToday, salesAgg, lowStock, expiring, recent] =
       await Promise.all([
         prisma.transaction.count({ where: { createdAt: { gte: startOfDay } } }),
@@ -215,7 +215,7 @@ export default async function DashboardPage({
     );
   }
 
-  /* =================== KASIR DASHBOARD =================== */
+  /* KASIR DASHBOARD  */
   const [ownTransactionsToday, recentOwn] = await Promise.all([
     prisma.transaction.count({
       where: { userId: session.userId, createdAt: { gte: startOfDay } },

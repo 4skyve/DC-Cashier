@@ -24,10 +24,10 @@ export default async function KategoriPage({
     namespace: "kategori",
   });
 
-  // Semua kategori diambil langsung dari database
+  // Semua kategori diambil langsung dri db
   const allCategories = await getCategories();
 
-  // Search berdasarkan data database
+  // Search berdasarkan data db
   const categories = q
     ? allCategories.filter((category) =>
         category.name

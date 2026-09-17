@@ -41,9 +41,7 @@ export async function clearSession() {
   store.delete(COOKIE_NAME);
 }
 
-/* =========================
-   ROLE HELPERS
-========================= */
+/* ROLE HELPERS */
 
 export async function requireSession(): Promise<Session> {
   const session = await getSession();
